@@ -123,6 +123,23 @@ class ChecklistControllerTest extends TestCase
         ]);
     }
 
+
+    public function testDeleteChecklistInvalidId()
+    {
+        $this->json('DELETE', '/api/v1/checklists/123123123123', [], $this->serverParams);
+
+        $this->assertResponseStatus(404);
+    }
+
+    public function testDeleteChecklist()
+    {
+        $this->json('DELETE', '/api/v1/checklists/'.$this->checklist->id, [], $this->serverParams);
+
+        $this->assertResponseStatus(204);
+
+        $this->notSeeInDatabase('checklists', ['id' => $this->checklist->id]);
+    }
+
     private static function dataProvider(){
         $data = array (
             'data' =>

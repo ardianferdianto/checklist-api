@@ -22,4 +22,5 @@ $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Contro
     $api->get('/checklists/{id}', 'ChecklistController@get');
     $api->post('/checklists', 'ChecklistController@store');
     $api->patch('/checklists/{id}', 'ChecklistController@update');
+    $api->delete('/checklists/{id}', 'ChecklistController@delete');
 });

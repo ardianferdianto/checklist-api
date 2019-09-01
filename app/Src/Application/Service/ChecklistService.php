@@ -87,4 +87,11 @@ class ChecklistService
 
     }
 
+    public function deleteChecklist($id){
+
+        $event = $this->checklistRepo->delete($id);
+
+        $this->eventDispatcher->dispatch($event->releaseEvents());
+    }
+
 }

@@ -69,4 +69,18 @@ class ChecklistController extends Controller
         return $this->response->item($handleRequest, new ChecklistTransformer, ['key' => 'checklist']);
 
     }
+
+    public function delete($id)
+    {
+        $checklist = $this->checklistService->getChecklist($id);
+
+        if(!$checklist) {
+            throw new NotFoundHttpException('Checklist not found');
+        }
+
+        $this->checklistService->deleteChecklist($id);
+
+        return $this->response->noContent()->setStatusCode(204);
+
+    }
 }

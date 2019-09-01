@@ -11,6 +11,7 @@ namespace Src\Application\Repositories;
 
 use App\Checklist;
 use Src\Application\Event\ChecklistWasCreated;
+use Src\Application\Event\ChecklistWasDeleted;
 use Src\Application\Event\ChecklistWasUpdated;
 use Src\Application\EventGenerator;
 
@@ -48,5 +49,14 @@ class ChecklistRepository
         $this->raise(new ChecklistWasUpdated($model->id));
 
         return [$this, $model];
+    }
+
+    public function delete($id)
+    {
+        $this->checklist->where('id', $id)->delete();
+
+        $this->raise(new ChecklistWasDeleted($id));
+
+        return $this;
     }
 }
