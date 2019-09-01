@@ -18,7 +18,7 @@ class CreateHistoryTable extends Migration
             $table->string('loggable_type');
             $table->integer('loggable_id');
             $table->string('action');
-            $table->integer('kwuid');
+            $table->integer('kwuid')->nullable();
             $table->string('value');
             $table->timestamps();
         });

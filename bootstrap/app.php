@@ -76,9 +76,10 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+
 // $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
 $app->register(Src\Application\ApplicationServiceProvider::class);
@@ -102,6 +103,8 @@ app('Dingo\Api\Transformer\Factory')->setAdapter(function ($app) {
 });
 
 app('Dingo\Api\Transformer\Factory')->register('Checklist', 'ChecklistTransformer');
+app('Dingo\Api\Transformer\Factory')->register('Item', 'ItemTransformer');
+app('Dingo\Api\Transformer\Factory')->register('History', 'HistoryTransformer');
 
 /*
 |--------------------------------------------------------------------------

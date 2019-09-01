@@ -15,6 +15,7 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('checklist_id');
             $table->text('description')->nullable();
             $table->boolean('is_completed')->default(false);
             $table->timestamp('completed_at')->nullable();

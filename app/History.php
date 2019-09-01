@@ -27,4 +27,6 @@ class History extends Model
     ];
 
     protected $primaryKey = 'id';
+
+    protected $table = "history";
 }

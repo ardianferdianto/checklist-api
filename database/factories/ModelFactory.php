@@ -40,7 +40,7 @@ $factory->define(App\Item::class, function (Faker\Generator $faker) {
         'urgency' => $faker->randomDigit,
         'assignee_id' => $faker->randomDigit,
         'task_id' => $faker->randomDigit,
-        'last_update_by' => $faker->uuid,
+        'updated_by' => $faker->uuid,
     ];
 });
 

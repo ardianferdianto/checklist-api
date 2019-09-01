@@ -9,7 +9,8 @@
 namespace Src\Application;
 
 
-use Illuminate\Events\Dispatcher;
+
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Facades\Log;
 
 class EventDispatcher {

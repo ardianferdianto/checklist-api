@@ -19,6 +19,7 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
+        'checklist_id',
         'description',
         'is_completed',
         'completed_at',
@@ -30,4 +31,6 @@ class Item extends Model
     ];
 
     protected $primaryKey = 'id';
+
+
 }

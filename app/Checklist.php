@@ -16,4 +16,9 @@ class Checklist extends Model
     ];
 
     protected $primaryKey = 'id';
+
+    public function items()
+    {
+        return $this->hasMany(Item::class, 'checklist_id','id');
+    }
 }
