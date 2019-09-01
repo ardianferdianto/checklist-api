@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Src\Application\Model\ChecklistTransformer;
+use Src\Application\Repositories\ChecklistRepository;
 use Src\Application\Service\ChecklistService;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -16,12 +17,26 @@ class ChecklistController extends Controller
     use Helpers;
 
     private $checklistService;
+    private $checklistRepository;
     /**
      * ChecklistController constructor.
      */
-    public function __construct(ChecklistService $checklistService)
+    public function __construct(ChecklistService $checklistService, ChecklistRepository $checklistRepository)
     {
         $this->checklistService = $checklistService;
+        $this->checklistRepository = $checklistRepository;
+    }
+
+    public function index(Request $request)
+    {
+        $params = $request->all();
+
+        $page = isset($params['page']) ? $params['page'] : 1;
+        $page_limit = isset($params['page_limit']) ? $params['page_limit'] : 10;
+
+        $checklists = $this->checklistRepository->findAllPaginate($page, $page_limit);
+
+        return $this->response->paginator($checklists, new ChecklistTransformer, ['key' => 'checklist']);
     }
 
     public function get($id)

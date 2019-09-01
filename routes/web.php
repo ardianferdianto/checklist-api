@@ -19,6 +19,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', ['middleware' => 'api.auth', 'namespace' => 'App\Http\Controllers\V1'], function ($api) {
 
+    $api->get('/checklists', 'ChecklistController@index');
     $api->get('/checklists/{id}', 'ChecklistController@get');
     $api->post('/checklists', 'ChecklistController@store');
     $api->patch('/checklists/{id}', 'ChecklistController@update');

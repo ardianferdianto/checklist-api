@@ -10,6 +10,7 @@ namespace Src\Application\Repositories;
 
 
 use App\Checklist;
+use Illuminate\Pagination\Paginator;
 use Src\Application\Event\ChecklistWasCreated;
 use Src\Application\Event\ChecklistWasDeleted;
 use Src\Application\Event\ChecklistWasUpdated;
@@ -27,6 +28,16 @@ class ChecklistRepository
         $this->checklist = new Checklist;
     }
 
+    public function findAllPaginate($page = 1, $limit = 10)
+    {
+        Paginator::currentPageResolver(function () use ($page) {
+            return $page;
+        });
+
+        $data = $this->checklist->paginate($limit);
+
+        return $data;
+    }
     public function ofId($id)
     {
         return $this->checklist->findOrFail($id);

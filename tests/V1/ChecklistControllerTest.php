@@ -140,6 +140,25 @@ class ChecklistControllerTest extends TestCase
         $this->notSeeInDatabase('checklists', ['id' => $this->checklist->id]);
     }
 
+    public function testGetListChecklist()
+    {
+        $this->json('GET', '/api/v1/checklists', ['page'], $this->serverParams);
+
+        $this->assertResponseStatus(200);
+
+        $this->seeJsonStructure([
+            'data' => [
+                ['type',
+                "id",
+                'attributes' => [],
+                'links' => []
+                    ]
+            ],
+            'meta' => [],
+            'links' => []
+        ]);
+    }
+
     private static function dataProvider(){
         $data = array (
             'data' =>
