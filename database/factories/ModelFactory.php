@@ -21,7 +21,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Checklist::class, function (Faker\Generator $faker) {
     return [
         'object_domain' => $faker->randomElement(['contact','deals','note']),
-        'object_id' => $faker->uuid,
+        'object_id' => $faker->randomDigit,
         'description' => $faker->words($nb = 3, $asText = true),
         'is_completed' => $faker->boolean,
         'due' => $faker->dateTimeThisMonth,

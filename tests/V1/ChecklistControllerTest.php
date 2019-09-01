@@ -52,4 +52,38 @@ class ChecklistControllerTest extends TestCase
         ]);
     }
 
+    public function testChecklistStoreInvalidParams()
+    {
+        $this->call('POST', '/api/v1/checklists/', [], [], [], $this->serverParams);
+
+        $this->assertResponseStatus(500);
+    }
+
+    public function testChecklistStore()
+    {
+        $data = array (
+            'data' =>
+                array (
+                    'attributes' =>
+                        array (
+                            'object_domain' => 'contact',
+                            'object_id' => '1',
+                            'due' => '2019-01-25 07:50:14',
+                            'urgency' => 1,
+                            'description' => 'Need to verify this guy house.',
+                            'items' =>
+                                array (
+                                    0 => 'Visit his house',
+                                    1 => 'Capture a photo',
+                                    2 => 'Meet him on the house',
+                                ),
+                            'task_id' => '123',
+                        ),
+                ),
+        );
+
+        $this->json('POST', '/api/v1/checklists/', $data, $this->serverParams);
+
+        $this->assertResponseStatus(201);
+    }
 }

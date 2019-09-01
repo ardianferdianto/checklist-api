@@ -22,6 +22,7 @@ class ChecklistController extends Controller
     {
         $this->checklistService = $checklistService;
     }
+
     public function get($id)
     {
         $checklist = $this->checklistService->getChecklist($id);
@@ -31,5 +32,18 @@ class ChecklistController extends Controller
         }
 
         return $this->response->item($checklist, new ChecklistTransformer, ['key' => 'checklist']);
+    }
+
+    public function store(Request $request)
+    {
+        $request = $request->json()->all();
+
+        $handleRequest = $this->checklistService->storeChecklist($request["data"]['attributes']);
+
+        if(is_array($handleRequest)) {
+            throw new StoreResourceFailedException('Invalid request', $handleRequest);
+        }
+
+        return $this->response->created();
     }
 }

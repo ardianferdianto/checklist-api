@@ -25,7 +25,7 @@ class ChecklistService
 
     public static $RULES = [
         'object_domain' => 'required|string',
-        'object_id' => 'required|string',
+        'object_id' => 'required|numeric',
         'description' => 'required|string',
         'is_completed' => 'boolean',
         'due' => 'date',
