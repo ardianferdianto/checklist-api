@@ -81,6 +81,7 @@ $app->singleton(
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Flipbox\LumenGenerator\LumenGeneratorServiceProvider::class);
 $app->register(Dingo\Api\Provider\LumenServiceProvider::class);
+$app->register(Src\Application\ApplicationServiceProvider::class);
 
 
 app('Dingo\Api\Auth\Auth')->extend('static', function ($app) {
@@ -98,7 +99,6 @@ app('Dingo\Api\Transformer\Factory')->setAdapter(function ($app) {
     $fractal->setSerializer(new \League\Fractal\Serializer\JsonApiSerializer(env('APP_URL')));
 
     return new Dingo\Api\Transformer\Adapter\Fractal($fractal, 'include', ',');
-    //return new Dingo\Api\Transformer\Adapter\Fractal(new League\Fractal\Manager, 'include', ',');
 });
 
 app('Dingo\Api\Transformer\Factory')->register('Checklist', 'ChecklistTransformer');

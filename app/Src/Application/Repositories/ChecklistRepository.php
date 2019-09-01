@@ -10,10 +10,12 @@ namespace Src\Application\Repositories;
 
 
 use App\Checklist;
+use Src\Application\Event\ChecklistWasCreated;
+use Src\Application\EventGenerator;
 
 class ChecklistRepository
 {
-
+    use EventGenerator;
     private $checklist;
     /**
      * ChecklistRepository constructor.
@@ -26,5 +28,15 @@ class ChecklistRepository
     public function ofId($id)
     {
         return $this->checklist->findOrFail($id);
+    }
+
+    public function store(array $properties)
+    {
+        $model = $this->checklist->newInstance();
+
+        $model->create($properties);
+        $this->raise(new ChecklistWasCreated($model->id));
+
+        return $this;
     }
 }
