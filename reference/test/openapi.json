@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "checklist",
+    "version": "1.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {},
+  "components": {
+    "securitySchemes": {
+      "scheme_0": {
+        "name": "API Key",
+        "type": "apiKey",
+        "in": "query"
+      }
+    }
+  }
+}
