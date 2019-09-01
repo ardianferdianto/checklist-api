@@ -41,9 +41,10 @@ class ChecklistController extends Controller
         $handleRequest = $this->checklistService->storeChecklist($request["data"]['attributes']);
 
         if(is_array($handleRequest)) {
-            throw new StoreResourceFailedException('Invalid request', $handleRequest);
+            return $this->response->errorInternal('Server Error');
+
         }
 
-        return $this->response->created();
+        return $this->response->item($handleRequest, new ChecklistTransformer, ['key' => 'checklist'])->setStatusCode(201);
     }
 }

@@ -54,7 +54,7 @@ class ChecklistControllerTest extends TestCase
 
     public function testChecklistStoreInvalidParams()
     {
-        $this->call('POST', '/api/v1/checklists/', [], [], [], $this->serverParams);
+        $this->json('POST', '/api/v1/checklists/', [], $this->serverParams);
 
         $this->assertResponseStatus(500);
     }

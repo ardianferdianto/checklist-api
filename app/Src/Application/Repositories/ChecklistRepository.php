@@ -34,9 +34,9 @@ class ChecklistRepository
     {
         $model = $this->checklist->newInstance();
 
-        $model->create($properties);
-        $this->raise(new ChecklistWasCreated($model->id));
+        $checklist = $model->create($properties);
+        $this->raise(new ChecklistWasCreated($checklist->id));
 
-        return $this;
+        return [$this, $checklist];
     }
 }

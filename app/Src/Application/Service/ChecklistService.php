@@ -63,8 +63,10 @@ class ChecklistService
             return $validator->errors()->all();
         }
 
-        $event = $this->checklistRepo->store($request);
+        list($event, $checklist) = $this->checklistRepo->store($request);
         $this->eventDispatcher->dispatch($event->releaseEvents());
+
+        return $checklist;
     }
 
 
