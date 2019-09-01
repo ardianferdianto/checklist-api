@@ -16,18 +16,6 @@ class ChecklistTransformer extends TransformerAbstract
 {
     public function transform(Checklist $checklist)
     {
-
-        /*$data = [
-            "type" => "checklist",
-            "id" => (string)$checklist->id,
-            "attributes" => [
-                $checklist->toArray()
-            ],
-            "links" => [
-                "self" => '/checklists/'.$checklist->id
-            ]
-        ];*/
-
         return $checklist->toArray();
     }
 }

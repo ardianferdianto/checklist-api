@@ -85,5 +85,65 @@ class ChecklistControllerTest extends TestCase
         $this->json('POST', '/api/v1/checklists/', $data, $this->serverParams);
 
         $this->assertResponseStatus(201);
+
+        $this->seeJsonStructure([
+            'data' => [
+                'type',
+                "id",
+                'attributes' => [],
+                'links' => []
+            ]
+        ]);
+    }
+
+    public function testUpdateChecklistInvalidId()
+    {
+        $data = self::dataProvider();
+
+        $this->json('PATCH', '/api/v1/checklists/19997', $data, $this->serverParams);
+
+        $this->assertResponseStatus(404);
+    }
+
+    public function testUpdateChecklist()
+    {
+        $data = self::dataProvider();
+
+        $this->json('PATCH', '/api/v1/checklists/'.$this->checklist->id, $data, $this->serverParams);
+
+        $this->assertResponseStatus(200);
+
+        $this->seeJsonStructure([
+            'data' => [
+                'type',
+                "id",
+                'attributes' => [],
+                'links' => []
+            ]
+        ]);
+    }
+
+    private static function dataProvider(){
+        $data = array (
+            'data' =>
+                array (
+                    'attributes' =>
+                        array (
+                            'object_domain' => 'contact',
+                            'object_id' => '1',
+                            'due' => '2019-01-25 07:50:14',
+                            'urgency' => 1,
+                            'description' => 'Need to verify this guy house.',
+                            'items' =>
+                                array (
+                                    0 => 'Visit his house',
+                                    1 => 'Capture a photo',
+                                    2 => 'Meet him on the house',
+                                ),
+                            'task_id' => '123',
+                        ),
+                ),
+        );
+        return $data;
     }
 }

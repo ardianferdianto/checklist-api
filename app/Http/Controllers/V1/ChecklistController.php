@@ -4,6 +4,7 @@ namespace App\Http\Controllers\V1;
 
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Routing\Helpers;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Src\Application\Model\ChecklistTransformer;
@@ -46,5 +47,26 @@ class ChecklistController extends Controller
         }
 
         return $this->response->item($handleRequest, new ChecklistTransformer, ['key' => 'checklist'])->setStatusCode(201);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request = $request->json()->all();
+
+        try{
+            $handleRequest = $this->checklistService->updateChecklist($id, $request["data"]['attributes']);
+        }
+        catch (ModelNotFoundException $e)
+        {
+            throw new NotFoundHttpException('Checklist not found');
+        }
+
+        if(is_array($handleRequest)) {
+            return $this->response->errorInternal('Server Error');
+
+        }
+
+        return $this->response->item($handleRequest, new ChecklistTransformer, ['key' => 'checklist']);
+
     }
 }

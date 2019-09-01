@@ -12,6 +12,7 @@ namespace Src\Application\Service;
 use App\Checklist;
 use Dingo\Api\Routing\Helpers;
 use http\Env\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Src\Application\EventDispatcher;
@@ -69,5 +70,21 @@ class ChecklistService
         return $checklist;
     }
 
+    public function updateChecklist($id, array $params)
+    {
+        $model = $this->checklistRepo->ofId($id);
+
+        $validator = Validator::make($params, self::$RULES);
+
+        if ($validator->fails()) {
+            return $validator->errors()->all();
+        }
+
+        list($event, $checklist) = $this->checklistRepo->update($model, $params);
+        $this->eventDispatcher->dispatch($event->releaseEvents());
+
+        return $checklist;
+
+    }
 
 }

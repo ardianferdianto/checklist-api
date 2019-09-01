@@ -11,6 +11,7 @@ namespace Src\Application\Repositories;
 
 use App\Checklist;
 use Src\Application\Event\ChecklistWasCreated;
+use Src\Application\Event\ChecklistWasUpdated;
 use Src\Application\EventGenerator;
 
 class ChecklistRepository
@@ -38,5 +39,14 @@ class ChecklistRepository
         $this->raise(new ChecklistWasCreated($checklist->id));
 
         return [$this, $checklist];
+    }
+
+    public function update(Checklist $model, array $properties)
+    {
+        $model->update($properties);
+
+        $this->raise(new ChecklistWasUpdated($model->id));
+
+        return [$this, $model];
     }
 }
