@@ -30,3 +30,26 @@ $factory->define(App\Checklist::class, function (Faker\Generator $faker) {
         'last_update_by' => $faker->uuid,
     ];
 });
+
+$factory->define(App\Item::class, function (Faker\Generator $faker) {
+    return [
+        'description' => $faker->words($nb = 3, $asText = true),
+        'is_completed' => $faker->boolean,
+        'completed_at' => $faker->dateTimeThisMonth,
+        'due' => $faker->dateTimeThisMonth,
+        'urgency' => $faker->randomDigit,
+        'assignee_id' => $faker->randomDigit,
+        'task_id' => $faker->randomDigit,
+        'last_update_by' => $faker->uuid,
+    ];
+});
+
+$factory->define(\App\History::class, function (Faker\Generator $faker) {
+   return [
+       'loggable_type' => $faker->randomElement(['checklist','items']),
+       'loggable_id' => $faker->randomDigit,
+       'action' => $faker->randomElement(['create','read','update','delete']),
+       'kwuid' => $faker->randomDigit,
+       'value' => $faker->word,
+   ];
+});
